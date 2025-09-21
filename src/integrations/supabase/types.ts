@@ -14,7 +14,87 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      generated_reports: {
+        Row: {
+          content: Json
+          created_at: string
+          file_references: string[] | null
+          generated_date: string
+          id: string
+          report_type: string
+          status: string
+          title: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          content?: Json
+          created_at?: string
+          file_references?: string[] | null
+          generated_date?: string
+          id?: string
+          report_type?: string
+          status?: string
+          title: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          content?: Json
+          created_at?: string
+          file_references?: string[] | null
+          generated_date?: string
+          id?: string
+          report_type?: string
+          status?: string
+          title?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      uploaded_files: {
+        Row: {
+          created_at: string
+          file_path: string
+          file_size: number
+          file_type: string
+          filename: string
+          id: string
+          metadata: Json | null
+          processing_status: string
+          updated_at: string
+          upload_date: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          file_path: string
+          file_size: number
+          file_type: string
+          filename: string
+          id?: string
+          metadata?: Json | null
+          processing_status?: string
+          updated_at?: string
+          upload_date?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          file_path?: string
+          file_size?: number
+          file_type?: string
+          filename?: string
+          id?: string
+          metadata?: Json | null
+          processing_status?: string
+          updated_at?: string
+          upload_date?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
