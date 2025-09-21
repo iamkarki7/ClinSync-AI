@@ -3,11 +3,18 @@ import { StatsCard } from "@/components/StatsCard";
 import { TrialDataTable } from "@/components/TrialDataTable";
 import { AuditTrail } from "@/components/AuditTrail";
 import { ComplianceChart } from "@/components/ComplianceChart";
+import { FileUpload } from "@/components/FileUpload";
+import { ReportGenerator } from "@/components/ReportGenerator";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { FileText, Users, CheckCircle, AlertTriangle, Upload, Download } from "lucide-react";
 import heroImage from "@/assets/clinical-hero.jpg";
+import { useState } from "react";
 
 const Index = () => {
+  const [uploadDialogOpen, setUploadDialogOpen] = useState(false);
+  const [reportDialogOpen, setReportDialogOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-gradient-subtle">
       <Header />
@@ -31,14 +38,35 @@ const Index = () => {
               Reduce weeks of manual work to hours with built-in compliance and audit trails.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-                <Upload className="h-5 w-5 mr-2" />
-                Upload eCRF Data
-              </Button>
-              <Button variant="outline" size="lg" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
-                <Download className="h-5 w-5 mr-2" />
-                Generate Report
-              </Button>
+              <Dialog open={uploadDialogOpen} onOpenChange={setUploadDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                    <Upload className="h-5 w-5 mr-2" />
+                    Upload eCRF Data
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl">
+                  <DialogHeader>
+                    <DialogTitle>Upload Clinical Trial Data</DialogTitle>
+                  </DialogHeader>
+                  <FileUpload onUploadComplete={() => setUploadDialogOpen(false)} />
+                </DialogContent>
+              </Dialog>
+              
+              <Dialog open={reportDialogOpen} onOpenChange={setReportDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" size="lg" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
+                    <Download className="h-5 w-5 mr-2" />
+                    Generate Report
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl">
+                  <DialogHeader>
+                    <DialogTitle>Generate Clinical Report</DialogTitle>
+                  </DialogHeader>
+                  <ReportGenerator onReportGenerated={() => setReportDialogOpen(false)} />
+                </DialogContent>
+              </Dialog>
             </div>
           </div>
         </div>
